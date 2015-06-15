@@ -4,6 +4,7 @@ from mailthon import email
 from mailthon.middleware import TLS, Auth
 from collections import OrderedDict
 from threading import Thread
+from twilio.rest import TwilioRestClient
 
 import csv
 
@@ -28,7 +29,8 @@ class Postie(object):
         self.port = self.args.port
         self.username = self.args.user
         self.password = self.args.password
-        self.init_mailthon()
+        self.token = self.args.token
+        self.sid = self.args.sid
 
     def setup_postie(self):
         """
@@ -41,13 +43,16 @@ class Postie(object):
         Setup mailthon instance
         """
         self.postman = Postman(
-            host='smtp-mail.outlook.com',
-            port=587,
+            host=self.server,
+            port=self.port,
             middlewares=[
                 TLS(force=True),
                 Auth(username=self.username, password=self.password)
             ],
         )
+
+    def init_twilio(self):
+        self.client = TwilioRestClient(self.sid, self.token)
 
     @property
     def csv_content(self):
@@ -68,7 +73,7 @@ class Postie(object):
         template_var_list = [each.strip() for each in headers][1:]
         return OrderedDict.fromkeys(template_var_list)
 
-    def validate_header(self, content, mode='email'):
+    def validate_header(self, content, mode):
         """
         Check is the first column of csv file contains email or phone number.
         """
@@ -89,6 +94,11 @@ class Postie(object):
     def send_async_email(self, envelope):
         self.postman.send(envelope)
 
+    def send_async_sms(self, msg, to, from_):
+        self.client.messages.create(body=msg,
+                                    to=to,
+                                    from_=from_)
+
     def construct_msg(self, arg_list):
         """
         Insert the keyword values from csv file to the template.
@@ -98,13 +108,22 @@ class Postie(object):
             template_kwargs[key] = arg_list[i + 1].strip()
         return self.render_template(**template_kwargs)
 
+    def send_sms(self):
+        content = self.csv_content[1:]
+        for row in content:
+            msg = self.construct_msg(row)
+            thr = Thread(
+                target=self.send_async_sms, args=[msg, row[0], self.sender])
+            thr.start()
+        return thr
+
     def send_emails(self):
         content = self.csv_content[1:]
         for row in content:
             envelope = email(
-                sender='Nauman Ahmad <tes@mail.com>',
+                sender=self.sender,
                 receivers=[row[0]],
-                subject='Hello World!',
+                subject=self.subject,
                 content=self.construct_msg(row))
             # Spawn a thread for each email delivery
             thr = Thread(target=self.send_async_email, args=[envelope])
@@ -112,4 +131,16 @@ class Postie(object):
         return thr
 
     def run(self):
-        self.send_emails()
+        if self.token and self.sid is not None:
+            print "Sending SMS using Twilo..."
+            self.send_sms()
+            self.init_twilio()
+        elif self.username and self.password is not None:
+            print "Sending Emails..."
+            self.init_mailthon()
+            self.send_emails()
+        else:
+            print """
+            Use -sid & -token to send sms.
+            Use -user & -pwd to send emails
+            """
