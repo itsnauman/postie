@@ -1,8 +1,6 @@
-import argparse
+from argparse import ArgumentParser
 import os
 from postie import Postie
-
-parser = argparse.ArgumentParser(description="Utility to batch send emails")
 
 
 def is_valid_file(parser, arg):
@@ -11,40 +9,45 @@ def is_valid_file(parser, arg):
         return arg
     parser.error("The file %s does not exist!" % arg)
 
-parser.add_argument("-t", "--template",
-                    required=True,
-                    dest="template",
-                    type=lambda x: is_valid_file(parser, x),
-                    help="Email template file")
 
-parser.add_argument("-csv",
-                    required=True,
-                    type=lambda x: is_valid_file(parser, x),
-                    help="CSV file")
+def create_parser():
 
-parser.add_argument("-sender",
-                    type=str,
-                    help="Email to send from")
+    parser = ArgumentParser(description="Utility to batch send emails")
+    parser.add_argument("-t", "--template",
+                        required=True,
+                        dest="template",
+                        type=lambda x: is_valid_file(parser, x),
+                        help="Email template file")
 
-parser.add_argument("-subject",
-                    type=str,
-                    help="Subject of the email")
+    parser.add_argument("-csv",
+                        required=True,
+                        type=lambda x: is_valid_file(parser, x),
+                        help="CSV file")
 
-parser.add_argument("-server",
-                    help="STMP server address")
+    parser.add_argument("-sender",
+                        type=str,
+                        help="Email to send from")
 
-parser.add_argument("-port",
-                    type=int,
-                    help="Port of SMTP server")
+    parser.add_argument("-subject",
+                        type=str,
+                        help="Subject of the email")
 
-parser.add_argument("-user",
-                    help="Username of sender")
+    parser.add_argument("-server",
+                        help="STMP server address")
 
-parser.add_argument("-pwd", "--password",
-                    dest="password",
-                    help="Password for sender")
+    parser.add_argument("-port",
+                        type=int,
+                        help="Port of SMTP server")
 
-if __name__ == "__main__":
-    args = parser.parse_args()
-    p = Postie(args)
+    parser.add_argument("-user",
+                        help="Username of sender")
+
+    parser.add_argument("-pwd", "--password",
+                        dest="password",
+                        help="Password for account")
+
+    return parser
+
+if __name__ == '__main__':
+    p = Postie(create_parser().parse_args())
     p.run()
