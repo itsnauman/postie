@@ -22,7 +22,7 @@ Postie is a command line utility for batch sending emails and text messages.
                     [-server SERVER] [-port PORT] [-user USER] [-pwd PASSWORD]
                     [-sid SID] [-token TOKEN]
 
-#### Example
+### Example
 
 ##### Sending Emails
 
@@ -33,7 +33,7 @@ $ postie -t template.txt -csv recipients.csv \
     -user bumble -password BumbleBee007
 ```
 
-#### Sending Text Messages
+##### Sending Text Messages
 
 ```
 $ postie -t template.txt -csv recipients.csv \
