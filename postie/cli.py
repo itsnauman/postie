@@ -26,7 +26,7 @@ def create_parser():
 
     parser.add_argument("-sender",
                         type=str,
-                        help="Email to send from")
+                        help="Sender of email/sms")
 
     parser.add_argument("-subject",
                         type=str,
@@ -46,8 +46,18 @@ def create_parser():
                         dest="password",
                         help="Password for account")
 
+    parser.add_argument("-sid",
+                        help="Twilio Account SID")
+
+    parser.add_argument("-token",
+                        help="Twilio Auth Token")
+
     return parser
 
-if __name__ == '__main__':
+
+def main():
     p = Postie(create_parser().parse_args())
     p.run()
+
+if __name__ == '__main__':
+    main()
