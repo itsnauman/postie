@@ -1,6 +1,6 @@
 # Postie
 
-<img src="http://41.media.tumblr.com/tumblr_md787xAplD1rnrne9o1_1280.png" width="130" alt="Postman Icon" align="right">
+<img src="http://41.media.tumblr.com/tumblr_md787xAplD1rnrne9o1_1280.png" width="280" alt="Postman Icon" align="right">
 Postie is a command line utility for batch sending email.
 
 #### Features
@@ -29,7 +29,7 @@ $ postie -t template.txt -csv recipients.csv \
     -user bumble -password BumbleBee007
 ```
 
-template.txt:
+##### template.txt:
 
 ```
 Hey {{ Name }}. You are a {{ Type }}.
@@ -41,7 +41,7 @@ We are no more bros!
 {% endif %}
 ```
 
-recipients.csv:
+##### recipients.csv:
 
 ```
 Email,Name,Type
