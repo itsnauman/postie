@@ -1,7 +1,7 @@
 # Postie
 
 <img src="http://41.media.tumblr.com/tumblr_md787xAplD1rnrne9o1_1280.png" width="280" alt="Postman Icon" align="right">
-Postie is a command line utility for batch sending emails and text messages.
+Postie is a command line utility for batch sending emails and text messages. Inspired by [Postman](https://github.com/zachlatta/postman)
 
 #### Features
 
