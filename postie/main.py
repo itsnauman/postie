@@ -4,6 +4,7 @@ from mailthon import email
 from mailthon.middleware import TLS, Auth
 from collections import OrderedDict
 from threading import Thread
+import twilio
 from twilio.rest import TwilioRestClient
 
 import csv
@@ -73,15 +74,14 @@ class Postie(object):
         template_var_list = [each.strip() for each in headers][1:]
         return OrderedDict.fromkeys(template_var_list)
 
-    def validate_header(self, content, mode):
+    def validate_header(self, mode):
         """
         Check is the first column of csv file contains email or phone number.
         """
-        headers = content[0]
+        headers = self.csv_content[0]
         email_header = headers[0] if headers[0].lower() == mode else None
         if email_header is None:
-            raise PostieInvalidFirstHeader(
-                "First column needs to have %s" % mode)
+            print "First column needs to have %s" % mode
 
     def render_template(self, **kwargs):
         """
@@ -95,9 +95,12 @@ class Postie(object):
         self.postman.send(envelope)
 
     def send_async_sms(self, msg, to, from_):
-        self.client.messages.create(body=msg,
-                                    to=to,
-                                    from_=from_)
+        try:
+            self.client.messages.create(body=msg,
+                                        to=to,
+                                        from_=from_)
+        except twilio.TwilioRestException as e:
+            print e
 
     def construct_msg(self, arg_list):
         """
@@ -133,8 +136,8 @@ class Postie(object):
     def run(self):
         if self.token and self.sid is not None:
             print "Sending SMS using Twilo..."
-            self.send_sms()
             self.init_twilio()
+            self.send_sms()
         elif self.username and self.password is not None:
             print "Sending Emails..."
             self.init_mailthon()
