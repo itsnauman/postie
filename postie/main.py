@@ -10,14 +10,6 @@ from twilio.rest import TwilioRestClient
 import csv
 
 
-class PostieInvalidFirstHeader(Exception):
-
-    """
-    This exception is raised when the csv header is not in correct format.
-    """
-    pass
-
-
 class Postie(object):
 
     def __init__(self, args):
