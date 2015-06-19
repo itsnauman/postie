@@ -6,7 +6,7 @@ Postie is a command line utility for batch sending emails and text messages. Ins
 #### Features
 
 * Works with any SMTP server
-* Send Text Messages using Twilo
+* Send Text Messages using Twilio
 * Fast, templated, bulk emails
 * All of the power of Jinja 2 templating engine.
 * Uses threads to send emails and text messages concurrently.
