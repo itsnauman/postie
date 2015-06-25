@@ -25,12 +25,6 @@ class Postie(object):
         self.token = self.args.token
         self.sid = self.args.sid
 
-    def setup_postie(self):
-        """
-        Initialize .postie file with user settings
-        """
-        pass
-
     def init_mailthon(self):
         """
         Setup mailthon instance
