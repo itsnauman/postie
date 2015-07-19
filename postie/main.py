@@ -26,9 +26,6 @@ class Postie(object):
         self.sid = self.args.sid
 
     def init_mailthon(self):
-        """
-        Setup mailthon instance
-        """
         self.postman = Postman(
             host=self.server,
             port=self.port,
@@ -124,12 +121,11 @@ class Postie(object):
             print "Sending SMS using Twilo..."
             self.init_twilio()
             self.send_sms()
+            print "Done sending text messages!"
         elif self.username and self.password is not None:
             print "Sending Emails..."
             self.init_mailthon()
             self.send_emails()
+            print "Done sending emails!"
         else:
-            print """
-            Use -sid & -token to send sms.
-            Use -user & -pwd to send emails
-            """
+            print "Run postie --help for usage information"

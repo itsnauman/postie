@@ -12,7 +12,8 @@ def is_valid_file(parser, arg):
 
 def create_parser():
 
-    parser = ArgumentParser(description="Utility to batch send emails")
+    parser = ArgumentParser(
+        description="Utility to batch send emails and text messages")
     parser.add_argument("-t", "--template",
                         required=True,
                         dest="template",
