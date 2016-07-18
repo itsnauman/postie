@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from setuptools import setup
 
 setup(
     name='py-postie',
-    version='0.01',
+    version='0.10',
     py_modules=['py-postie'],
     description='Utility to batch send emails and text messages',
     url='http://github.com/itsnauman/postie',
