@@ -1,9 +1,9 @@
-# Postie
+# Postie :envelope:
 
 <img src="http://41.media.tumblr.com/tumblr_md787xAplD1rnrne9o1_1280.png" width="280" alt="Postman Icon" align="right">
 Postie is a command line utility for batch sending emails and text messages. Inspired by [Postman](https://github.com/zachlatta/postman)
 
-#### Features
+#### Features 🙈
 
 * Works with any SMTP server
 * Send Text Messages using Twilio
@@ -16,7 +16,7 @@ Postie is a command line utility for batch sending emails and text messages. Ins
 
     $ pip install py-postie
 
-### Usage
+### Usage 
 
     $ usage: postie [-h] -t TEMPLATE -csv CSV [-sender SENDER] [-subject SUBJECT]
                     [-server SERVER] [-port PORT] [-user USER] [-pwd PASSWORD]
@@ -24,7 +24,7 @@ Postie is a command line utility for batch sending emails and text messages. Ins
 
 ### Example
 
-##### Sending Emails
+##### 👉 Sending Emails
 
 ```
 $ postie -t template.txt -csv recipients.csv \
@@ -33,7 +33,7 @@ $ postie -t template.txt -csv recipients.csv \
     -user bumble -password BumbleBee007
 ```
 
-##### Sending Text Messages
+##### 👉 Sending Text Messages
 
 ```
 $ postie -t template.txt -csv recipients.csv \
@@ -41,7 +41,7 @@ $ postie -t template.txt -csv recipients.csv \
     -subject "Hello, World!" -sid AC32a3c49700934481addd5ce1659f04d2
     -token {{ auth_token }}
 ```
-##### template.txt:
+##### 👉 template.txt:
 
 ```
 Hey {{ Name }}. You are a {{ Type }}.
@@ -53,7 +53,7 @@ We are no more bros!
 {% endif %}
 ```
 
-##### recipients.csv:
+##### 👉 recipients.csv:
 
 ```
 Email,Name,Type
@@ -61,4 +61,7 @@ mike@ross.com,Mike Ross,Human
 mance@rayder,Mance Rayder,Wildling
 victor@stone.com,Victor Stone,Robot
 ```
+## Thank you 😀
+Thanks for checking this library out! I hope you find it useful.
 
+There's always room for improvement. Feel free to open an issue so we can make Pickly better!
