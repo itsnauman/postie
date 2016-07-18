@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from argparse import ArgumentParser
 import os
 from postie import Postie
@@ -11,7 +13,6 @@ def is_valid_file(parser, arg):
 
 
 def create_parser():
-
     parser = ArgumentParser(
         description="Utility to batch send emails and text messages")
     parser.add_argument("-t", "--template",
@@ -54,7 +55,6 @@ def create_parser():
                         help="Twilio Auth Token")
 
     return parser
-
 
 def main():
     p = Postie(create_parser().parse_args())

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from jinja2 import Template
 from mailthon.postman import Postman
 from mailthon import email
