@@ -61,7 +61,3 @@ mike@ross.com,Mike Ross,Human
 mance@rayder,Mance Rayder,Wildling
 victor@stone.com,Victor Stone,Robot
 ```
-## Thank you 😀
-Thanks for checking this library out! I hope you find it useful.
-
-There's always room for improvement. Feel free to open an issue so we can make Pickly better!
